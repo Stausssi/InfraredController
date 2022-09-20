@@ -6,12 +6,13 @@ from piir import Remote
 
 
 class InfraredController:
-    def __init__(self):
+    def __init__(self, base_path):
         self.SPEAKER_IR_PORT = 22
         self.CLOCK_IR_PORT = 22
+        self.BASE_PATH = base_path
 
-        self.speaker_remote = Remote("speakers.json", self.SPEAKER_IR_PORT)
-        self.clock_remote = Remote("clock.json", self.CLOCK_IR_PORT)
+        self.speaker_remote = Remote(self.BASE_PATH + "/speakers.json", self.SPEAKER_IR_PORT)
+        self.clock_remote = Remote(self.BASE_PATH + "/clock.json", self.CLOCK_IR_PORT)
 
         self._messageHandlers = {
             "Speaker": {
