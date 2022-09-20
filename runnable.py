@@ -15,7 +15,7 @@ def main():
         rotation="12:00", enqueue=True, backtrace=True, diagnose=True,
     )
 
-    runnable = InfraredController()
+    runnable = InfraredController(BASE_PATH)
     runnable.run()
 
 
