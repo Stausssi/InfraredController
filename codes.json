@@ -1,0 +1,12 @@
+{
+	"speakers": {
+		"power": "0x8012",
+		"source": "0x801e",
+		"light": "0x8002"
+	},
+	"clock": {
+		"brightness": "0x800e",
+		"flashing_dot": "0x8006",
+		"rotation": "0x8004"
+	}
+}
