@@ -1,11 +1,12 @@
 import json
 import sys
 from threading import Thread
+from loguru import logger
 
 
 class InfraredController:
     def __init__(self):
-        print("Init")
+        logger.info("Init")
 
     def run(self):
         thread = Thread(target=self.loop)
@@ -15,12 +16,12 @@ class InfraredController:
 
     def loop(self):
         for line in sys.stdin:
-            print(f"Received {line.strip()}")
             self.handle_message(json.loads(line))
 
     def handle_message(self, message):
-        print(f"Received the message: {message}")
+        logger.info(f"Received the message: {message}")
 
     def send(self, message):
+        logger.info(f"Writing '{message}'")
         sys.stdout.write(json.dumps(message) + "\n")
         sys.stdout.flush()
