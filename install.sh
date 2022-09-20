@@ -3,3 +3,4 @@ cp -R ./infrared-controller /var/opt
 rm -rf ./infrared-controller
 
 chown -R pi:pi /var/opt/infrared-controller
+chmod +x /var/opt/infrared-controller/runnable.py
