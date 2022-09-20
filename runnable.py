@@ -1,4 +1,4 @@
-from InfraredController import InfraredController
+from infraredcontroller import InfraredController
 
 if __name__ == '__main__':
     runnable = InfraredController()
