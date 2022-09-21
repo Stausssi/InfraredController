@@ -148,8 +148,8 @@ class InfraredController:
         name: str = message["name"].lower()
         target, acc_type = name.split("_", 1)
 
-        self._controllers.get(target).handle_message(
-            acc_type, message["characteristic"].lower(), message["value"], message["status"]
+        self._controllers.get(target.lower()).handle_message(
+            acc_type.lower(), message["characteristic"], message["value"], message["status"]
         )
 
     def send(self, message):
