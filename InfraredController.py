@@ -1,28 +1,26 @@
 import json
 import sys
 from threading import Thread
+from typing import Union, Dict
+
 from loguru import logger
 from piir import Remote
 
+from ClockController import ClockController
+from SpeakerController import SpeakerController
+
 
 class InfraredController:
-    def __init__(self, base_path):
+    def __init__(self):
         self.SPEAKER_IR_PORT = 22
         self.CLOCK_IR_PORT = 22
-        self.BASE_PATH = base_path
 
-        self.speaker_remote = Remote(self.BASE_PATH + "/speakers.json", self.SPEAKER_IR_PORT)
-        self.clock_remote = Remote(self.BASE_PATH + "/clock.json", self.CLOCK_IR_PORT)
+        self.speaker_controller = SpeakerController()
+        self.clock_controller = ClockController()
 
-        self._messageHandlers = {
-            "Speaker": {
-                "Mute": self._toggle_speaker,
-                "Active": self._toggle_light
-            },
-            "Clock": {
-                "On": self._toggle_clock,
-                "Brightness": self._set_brightness
-            }
+        self._controllers = {
+            "speaker": self.speaker_controller,
+            "clock": self.clock_controller
         }
 
     def run(self):
@@ -35,24 +33,13 @@ class InfraredController:
         for line in sys.stdin:
             self.handle_message(json.loads(line))
 
-    def handle_message(self, message):
-        self._messageHandlers[message["name"]][message["characteristic"]](message["value"])
+    def handle_message(self, message: Dict[str, Union[bool, str, int, Dict[str, Union[bool, str, int]]]]):
+        name: str = message["name"].lower()
+        target, acc_type = name.split("_", 1)
 
-    def _toggle_speaker(self, value):
-        logger.debug(f"Speaker is now powered {'on' if value else 'off'}")
-        self.speaker_remote.send("power")
-
-    def _toggle_light(self, value):
-        logger.debug(f"Speaker lighting is now powered {'on' if value else 'off'}")
-        self.speaker_remote.send("light")
-
-    def _toggle_clock(self, value):
-        logger.debug(f"Clock is now powered {'on' if value else 'off'}")
-        self.clock_remote.send("brightness")
-
-    def _set_brightness(self, value):
-        logger.debug(f"Clock brightness is now {value}")
-        self.clock_remote.send("brightness")
+        self._controllers.get(target).handle_message(
+            acc_type, message["characteristic"].lower(), message["value"], message["status"]
+        )
 
     def send(self, message):
         logger.info(f"Writing '{message}'")
