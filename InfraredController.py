@@ -1,6 +1,7 @@
 import json
 import os.path
 import sys
+import time
 from threading import Thread
 from typing import Union, Dict, Tuple, List
 
@@ -55,15 +56,21 @@ class InfraredController:
         :return: A list of dictionaries that represent a device each
         """
 
-        device_list = [
-            device for device in requests.get(
-                f"{self.__base_url}/accessories", headers={"Authorization": f"Bearer {acc_token}"}
-            ).json() if "speaker" in device["serviceName"].lower() or "clock" in device["serviceName"].lower()
-        ]
+        device_list = []
 
-        logger.debug(
-            requests.get(f"{self.__base_url}/accessories", headers={"Authorization": f"Bearer {acc_token}"}).json()
-        )
+        while len(device_list) == 0:
+            device_list = [
+                device for device in requests.get(
+                    f"{self.__base_url}/accessories", headers={"Authorization": f"Bearer {acc_token}"}
+                ).json() if "speaker" in device["serviceName"].lower() or "clock" in device["serviceName"].lower()
+            ]
+            time.sleep(1)
+
+            logger.info("No devices yet...")
+
+        # logger.debug(
+        #     requests.get(f"{self.__base_url}/accessories", headers={"Authorization": f"Bearer {acc_token}"}).json()
+        # )
 
         return device_list
 
