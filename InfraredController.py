@@ -15,9 +15,6 @@ class InfraredController:
     def __init__(self):
         self.__base_url = "http://localhost:8581/api"
         acc_token = self.__authenticate()
-
-        logger.info(f"access token is {acc_token}")
-
         self.__devices = self.__get_all_devices(acc_token)
 
         logger.info(f"Received the devices: {self.__devices}")
@@ -63,6 +60,10 @@ class InfraredController:
                 f"{self.__base_url}/accessories", headers={"Authorization": f"Bearer {acc_token}"}
             ).json() if "speaker" in device["serviceName"].lower() or "clock" in device["serviceName"].lower()
         ]
+
+        logger.debug(
+            requests.get(f"{self.__base_url}/accessories", headers={"Authorization": f"Bearer {acc_token}"}).json()
+        )
 
         return device_list
 
