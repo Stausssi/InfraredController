@@ -1,5 +1,3 @@
-from loguru import logger
-
 from ControllerBase import ControllerBase
 
 
