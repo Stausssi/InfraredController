@@ -1,3 +1,5 @@
+from loguru import logger
+
 from ControllerBase import ControllerBase
 
 
@@ -7,6 +9,11 @@ class ClockController(ControllerBase):
         self.rotate = rotate
         self.show_temperature = show_temperature
         self.flash_dot = flash_dot
+
+        logger.debug(
+            f"Initialized with brightness {brightness}, rotation: {rotate}, show temperature: {show_temperature}, "
+            f"flashing dot: {flash_dot} "
+        )
 
         super().__init__(22, "clock.json", "Clock")
 

@@ -1,3 +1,5 @@
+from loguru import logger
+
 from ControllerBase import ControllerBase
 
 
@@ -6,6 +8,8 @@ class SpeakerController(ControllerBase):
         self.power = power_state
         self.source = source_state
         self.light = light_state
+
+        logger.debug(f"Initialized with power: {self.power}, source: {self.source}, light: {self.light}")
 
         super().__init__(22, "speakers.json", "Speaker")
 
