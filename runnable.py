@@ -14,7 +14,6 @@ def main():
         format="{time:HH:mm:ss.SSS} | {level:^8} | {module}:{function}:{line} - {message}",
         rotation="12:00", enqueue=True, backtrace=True, diagnose=True,
     )
-    logger.add(sys.stderr)
 
     runnable = InfraredController()
     runnable.run()
