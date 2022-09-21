@@ -18,8 +18,6 @@ class InfraredController:
         acc_token = self.__authenticate()
         self.__devices = self.__get_all_devices(acc_token)
 
-        logger.info(f"Received the devices: {self.__devices}")
-
         self.speaker_controller = SpeakerController(*self.__load_speaker_state())
         self.clock_controller = ClockController(*self.__load_clock_state())
 
@@ -67,10 +65,6 @@ class InfraredController:
             time.sleep(1)
 
             logger.info("No devices yet...")
-
-        # logger.debug(
-        #     requests.get(f"{self.__base_url}/accessories", headers={"Authorization": f"Bearer {acc_token}"}).json()
-        # )
 
         return device_list
 
