@@ -4,7 +4,7 @@ from InfraredController import InfraredController
 from loguru import logger
 
 
-@logger.catchi
+@logger.catch
 def main():
     # Init the logger with a new file every day
     logger.add(
