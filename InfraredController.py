@@ -13,7 +13,7 @@ from SpeakerController import SpeakerController
 
 class InfraredController:
     def __init__(self):
-        self.__base_url = "localhost:8581/api"
+        self.__base_url = "http://localhost:8581/api"
         acc_token = self.__authenticate()
         self.__devices = self.__get_all_devices(acc_token)
         self.speaker_controller = SpeakerController(*self.__load_speaker_state())
