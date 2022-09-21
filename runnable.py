@@ -1,7 +1,8 @@
 import os.path
 
-from InfraredController import InfraredController
 from loguru import logger
+
+from InfraredController import InfraredController
 
 
 @logger.catch

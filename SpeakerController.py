@@ -9,7 +9,7 @@ class SpeakerController(ControllerBase):
         self.source = source_state
         self.light = light_state
 
-        super().__init__(22, "speakers.json")
+        super().__init__(22, "speakers.json", "Speaker")
 
         self.message_handlers.update({
             "power": self._set_power,
@@ -18,13 +18,13 @@ class SpeakerController(ControllerBase):
         })
 
     def _set_power(self, characteristic: str, value: bool):
-        logger.info(f"Power '{characteristic}' is now set to {value}")
+        self.log_change("power", characteristic, value)
         self.power = value
 
     def _set_source(self, characteristic: str, value: bool):
-        logger.info(f"Source '{characteristic}' is now set to {value}")
+        self.log_change("source", characteristic, value)
         self.source = value
 
     def _set_light(self, characteristic: str, value: bool):
-        logger.info(f"Light '{characteristic}' is now set to {value}")
+        self.log_change("light", characteristic, value)
         self.light = value

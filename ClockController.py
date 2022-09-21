@@ -10,7 +10,7 @@ class ClockController(ControllerBase):
         self.show_temperature = show_temperature
         self.flash_dot = flash_dot
 
-        super().__init__(22, "clock.json")
+        super().__init__(22, "clock.json", "Clock")
 
         self.message_handlers.update({
             "light": self._set_brightness,
@@ -20,18 +20,18 @@ class ClockController(ControllerBase):
         })
 
     def _set_brightness(self, characteristic: str, value: int):
-        logger.info(f"Brightness '{characteristic}' is now set to {value}")
+        self.log_change("brightness", characteristic, value)
         self.brightness = value
 
     def _set_rotation(self, characteristic: str, value: bool):
-        logger.info(f"Rotation '{characteristic}' is now set to {value}")
+        self.log_change("rotation", characteristic, value)
         self.rotate = value
 
     def _set_show_temperature(self, characteristic: str, value: bool):
-        logger.info(f"Show temperature '{characteristic}' is now set to {value}")
+        self.log_change("show temperature", characteristic, value)
         self.show_temperature = value
 
     def _set_flashing_dot(self, characteristic: str, value: bool):
-        logger.info(f"Flashing dot '{characteristic}' is now set to {value}")
+        self.log_change("flashing dot", characteristic, value)
         self.flash_dot = value
 

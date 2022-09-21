@@ -4,7 +4,6 @@ from threading import Thread
 from typing import Union, Dict
 
 from loguru import logger
-from piir import Remote
 
 from ClockController import ClockController
 from SpeakerController import SpeakerController

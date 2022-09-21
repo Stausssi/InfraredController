@@ -1,7 +1,8 @@
 import json
 import time
-from evdev import InputDevice
+
 import RPi.GPIO as GPIO
+from evdev import InputDevice
 
 IR_LED_PORT = 22
 
