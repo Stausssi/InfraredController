@@ -90,7 +90,7 @@ class InfraredController:
 
         return power, source, light
 
-    def __load_clock_state(self) -> Tuple[int, bool, bool, bool]:
+    def __load_clock_state(self) -> Tuple[int, bool, bool, bool, bool]:
         """
         Load the current state of the clock.
 
@@ -99,12 +99,13 @@ class InfraredController:
         :return: The states of brightness, rotation, show temperature and flashing dot in that order
         """
 
-        brightness, rotation, show_temp, flash_dot = 0, False, False, False
+        brightness, light_on, rotation, show_temp, flash_dot = 0, False, False, False, False
 
         for device in self.__devices:
             device_name = device["serviceName"].lower()
             if "clock_light" in device_name:
                 brightness = int(device["values"]["Brightness"])
+                light_on = bool(device["values"]["On"])
             elif "clock_rotation" in device_name:
                 rotation = bool(device["values"]["On"])
             elif "clock_temp" in device_name:
@@ -112,7 +113,7 @@ class InfraredController:
             elif "clock_flashing_dot" in device_name:
                 flash_dot = bool(device["values"]["On"])
 
-        return brightness, rotation, show_temp, flash_dot
+        return brightness, light_on, rotation, show_temp, flash_dot
 
     def run(self) -> None:
         """

@@ -1,4 +1,5 @@
 import os.path
+import time
 from typing import Dict, Callable, Union
 
 from loguru import logger
@@ -41,16 +42,22 @@ class ControllerBase:
 
         self.message_handlers.get(acc_type)(characteristic, value)
 
-    def send_ir_command(self, name: str, repeat_count=1) -> None:
+    def send_ir_command(self, name: str, repeat_count=1, delay=1.) -> None:
         """
         Send an IR-command.
 
         :param name: The name of the command in the remote-config file
         :param repeat_count: The number of times this command should be sent
+        :param delay: The delay (in s) between the commands
         :return: Nothing
         """
 
-        self.remote.send(name, repeat_count)
+        logger.info(f"Sending the IR command '{name}' {repeat_count} times with a delay of {delay}s")
+
+        for _ in range(repeat_count):
+            self.remote.send(name)
+
+            time.sleep(delay)
 
     def log_change(self, acc_type: str, characteristic: str, value) -> None:
         """

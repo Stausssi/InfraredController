@@ -22,11 +22,14 @@ class SpeakerController(ControllerBase):
     def _set_power(self, characteristic: str, value: bool):
         self.log_change("power", characteristic, value)
         self.power = value
+        self.send_ir_command("power")
 
     def _set_source(self, characteristic: str, value: bool):
         self.log_change("source", characteristic, value)
         self.source = value
+        self.send_ir_command("source")
 
     def _set_light(self, characteristic: str, value: bool):
         self.log_change("light", characteristic, value)
         self.light = value
+        self.send_ir_command("light")
