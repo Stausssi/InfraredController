@@ -15,6 +15,9 @@ class InfraredController:
     def __init__(self):
         self.__base_url = "http://localhost:8581/api"
         acc_token = self.__authenticate()
+
+        logger.info(f"access token is {acc_token}")
+
         self.__devices = self.__get_all_devices(acc_token)
 
         logger.info(f"Received the devices: {self.__devices}")
