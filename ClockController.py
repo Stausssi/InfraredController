@@ -83,8 +83,8 @@ class ClockController(ControllerBase):
 class ClockLightState(IntEnum):
     AUTO = 100
     BRIGHT = 99
-    MEDIUM = 50
-    DULL = 25
+    MEDIUM = 66
+    DULL = 33
     OFF = 0
 
     @staticmethod
@@ -120,19 +120,3 @@ class ClockLightState(IntEnum):
             diff += 5
 
         return diff
-
-
-# if __name__ == '__main__':
-#     controller = ClockController(brightness=100, light_on=True)
-#
-#     controller.send_ir_command("brightness", 2)
-#
-#     print(f"Bright to Auto: {ClockLightState.BRIGHT - ClockLightState.AUTO}")
-#     print(f"Auto to Medium: {ClockLightState.AUTO - ClockLightState.MEDIUM}")
-#     print(f"Dull to Dull: {ClockLightState.DULL - ClockLightState.DULL}")
-#     print(f"Auto to Off: {ClockLightState.AUTO - ClockLightState.OFF}")
-#     print(f"Auto to Dull: {ClockLightState.AUTO - ClockLightState.DULL}")
-#     print(f"Off to Bright: {ClockLightState.OFF - ClockLightState.BRIGHT}")
-#     print(f"Off to Medium: {ClockLightState.OFF - ClockLightState.MEDIUM}")
-#     print(f"Off to Dull: {ClockLightState.OFF - ClockLightState.DULL}")
-#     print(f"Off to Auto: {ClockLightState.OFF - ClockLightState.AUTO}")
