@@ -26,6 +26,10 @@ class SpeakerController(ControllerBase):
         self.power = value
         self.send_ir_command("power")
 
+        # Automatically turn the light off on start
+        if value:
+            self.send_ir_command("light")
+
     def _set_source(self, characteristic: str, value: bool):
         self.log_change("source", characteristic, value)
         self.source = value
