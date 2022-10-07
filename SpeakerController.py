@@ -2,16 +2,18 @@ from loguru import logger
 
 from ControllerBase import ControllerBase
 
+IR_LED_PORT = 22
+
 
 class SpeakerController(ControllerBase):
-    def __init__(self, power_state = False, source_state = False, light_state = False):
+    def __init__(self, power_state=False, source_state=False, light_state=False):
         self.power = power_state
         self.source = source_state
         self.light = light_state
 
         logger.debug(f"Initialized with power: {self.power}, source: {self.source}, light: {self.light}")
 
-        super().__init__(22, "speakers.json", "Speaker")
+        super().__init__(IR_LED_PORT, "speakers.json", "Speaker")
 
         self.message_handlers.update({
             "power": self._set_power,

@@ -5,6 +5,8 @@ from loguru import logger
 
 from ControllerBase import ControllerBase
 
+IR_LED_PORT = 23
+
 
 class ClockController(ControllerBase):
     def __init__(self, brightness=0, light_on=False, rotate=False, show_temperature=False, flash_dot=False):
@@ -22,7 +24,7 @@ class ClockController(ControllerBase):
             f"show temperature: {show_temperature}, flashing dot: {flash_dot}"
         )
 
-        super().__init__(22, "clock.json", "Clock")
+        super().__init__(IR_LED_PORT, "clock.json", "Clock")
 
         self.message_handlers.update({
             "light": self._set_brightness,
