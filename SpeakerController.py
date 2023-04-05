@@ -1,3 +1,5 @@
+from typing import Callable
+
 from loguru import logger
 
 from ControllerBase import ControllerBase
@@ -22,6 +24,9 @@ class SpeakerController(ControllerBase):
         })
 
     def _set_power(self, characteristic: str, value: bool):
+        if self.power == value:
+            return
+
         self.log_change("power", characteristic, value)
         self.power = value
         self.send_ir_command("power")
@@ -31,11 +36,17 @@ class SpeakerController(ControllerBase):
             self.send_ir_command("light")
 
     def _set_source(self, characteristic: str, value: bool):
+        if self.source == value:
+            return
+
         self.log_change("source", characteristic, value)
         self.source = value
         self.send_ir_command("source")
 
     def _set_light(self, characteristic: str, value: bool):
+        if self.light == value:
+            return
+
         self.log_change("light", characteristic, value)
         self.light = value
         self.send_ir_command("light")
