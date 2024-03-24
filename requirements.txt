@@ -1,4 +1,4 @@
 evdev
 loguru
 PiIR
-RPi.GPIOT
+RPi.GPIO
