@@ -2,3 +2,4 @@ evdev
 loguru
 PiIR
 RPi.GPIO
+requests
